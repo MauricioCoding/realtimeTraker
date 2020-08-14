@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+
+  </head>
+  <body>
+<p>test</p>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+
+var currentUrl = window.location.href;
+	var socket = io();
+  socket.emit('url', currentUrl);
+  
+  window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = ''; 
+  });
+
+  window.onbeforeunload = function(event) {
+    socket.emit('myCustomEvent', currentUrl);
+    socket.disconnect();
+      };
+</script>
+  </body>
+</html>
